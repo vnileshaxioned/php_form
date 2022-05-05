@@ -68,14 +68,8 @@ if (isset($_POST['submit-button'])) {
     $f_size = $_FILES['file']['size'];
     $type = strtolower(pathinfo($f_name,PATHINFO_EXTENSION));
     
-    // $temp_name = $_FILES['file']['tmp_name'];
-    // $path = "upload/".$f_name;
-    
-    // if (move_uploaded_file($temp_name, $path)) {
-    //     echo "uploaded";
-    // } else {
-    //     echo "failed";
-    // }
+    $temp_name = $_FILES['file']['tmp_name'];
+    $path = "upload/".$f_name;
     
     $name_error = fieldRequired($name);
     $name_check = checkName($name);
@@ -100,7 +94,12 @@ if (isset($_POST['submit-button'])) {
     || $check_pass
     || $check_file)) {
         $user_details = array('Name' => $name, 'Email' => $email, 'Phone Number' => $phone_num, 'Gender' => $gender);
-        $file_name = $f_name;
+        $moved = move_uploaded_file($temp_name, $path);
+        if ($moved) {
+            $file_name = $f_name;
+        } else {
+            echo "failed ".$_FILES['file']['error'];
+        }
     }
     
 }

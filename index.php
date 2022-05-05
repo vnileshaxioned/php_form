@@ -1,5 +1,5 @@
 <?php
-require('user_details.php');
+require_once('user_details.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,6 +20,9 @@ require('user_details.php');
             }
             .box {
                 width: 30%;
+            }
+            .box img {
+                width: 100px;
             }
         </style>
     </head>
