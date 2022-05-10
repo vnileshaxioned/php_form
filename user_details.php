@@ -1,5 +1,6 @@
 <?php
 
+require_once('database/database_connection.php');
 
 function fieldRequired($data) {
     if (empty($data)) {
@@ -55,7 +56,7 @@ function checkFile($size, $type) {
     }
 }
 
-$name = $email = $phone_num = $gender = $file_name = "";
+$message = "";
 
 if (isset($_POST['submit-button'])) {
     $name = $_POST['name'];
@@ -93,15 +94,26 @@ if (isset($_POST['submit-button'])) {
     || $cpass_error
     || $check_pass
     || $check_file)) {
-        $user_details = array('Name' => $name, 'Email' => $email, 'Phone Number' => $phone_num, 'Gender' => $gender);
-        $moved = move_uploaded_file($temp_name, $path);
-        if ($moved) {
-            $file_name = $f_name;
+
+        $email_exist = mysqli_query($connection, "SELECT * FROM user_detail WHERE email = '$email'");
+
+        if (mysqli_num_rows($email_exist) > 0) {
+            $message = "Email already exist";
         } else {
-            echo "failed ".$_FILES['file']['error'];
+            $query = "INSERT INTO user_detail (name, email, phone_number, gender, password, profile_image) VALUES ('$name', '$email', '$phone_num', '$gender', '$pass', '$f_name')";
+
+            $result = mysqli_query($connection, $query);
+            if ($result) {
+                $moved = move_uploaded_file($temp_name, $path);
+                if (!$moved) {
+                    $message = "failed ".$_FILES['file']['error'];
+                }
+                $message = "User detail inserted";
+            } else {
+                $message = "User detail not inserted";
+            }
         }
     }
-    
 }
-
+mysqli_close($connection);
 ?>

@@ -28,6 +28,7 @@ require_once('user_details.php');
     </head>
     <body>
         <div class="container">
+            <h3><?php echo $message; ?></h3>
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     Name: <input type="text" name="name" class="form-control" value="<?php echo $name; ?>" placeholder="Enter Name">
@@ -71,21 +72,7 @@ require_once('user_details.php');
                     <input type="submit" name="submit-button" value="Submit">
                 </div>
             </form>
-            <?php if (isset($user_details)) { ?>
-                <div class="output">
-                    <div class="box">
-                        <h3>User Details</h3>
-                        <?php
-                            foreach ($user_details as $title => $detail) {
-                        ?>
-                        <p><?php echo $title." : ".$detail; } ?></p>
-                    </div>
-                    <div class="box">
-                        <h3>Profile Image</h3>
-                        <img src="upload/<?php echo $file_name; ?>" alt="<?php echo $file_name; ?>">
-                    </div>
-                </div>
-            <?php } ?>
+            <a href="view_user_detail.php">Show inserted user data</a>
         </div>
     </body>
 </html>
