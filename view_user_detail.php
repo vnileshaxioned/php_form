@@ -36,6 +36,7 @@ require_once('database/database_connection.php');
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone Number</th>
+                    <th>Gender</th>
                     <th>Profile Image</th>
                 </tr>
             </thead>
@@ -50,6 +51,7 @@ require_once('database/database_connection.php');
                         <td><?php echo $detail['name']; ?></td>
                         <td><?php echo $detail['email']; ?></td>
                         <td><?php echo $detail['phone_number']; ?></td>
+                        <td><?php echo $detail['gender']; ?></td>
                         <td>
                             <?php
                                 if ($detail['profile_image']) {
@@ -64,7 +66,7 @@ require_once('database/database_connection.php');
                             }
                         } else {
                     ?>
-                        <td colspan="4">No user data found</td>
+                        <td colspan="5">No user data found</td>
                     </tr>
                 <?php } ?>
             </tbody>
